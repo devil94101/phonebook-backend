@@ -6,7 +6,7 @@ var dotenv=require('dotenv').config()
 
 var ContactRouter=require('./routes/contact')
 
-var PORT=process.env.PORT||3000;
+var PORT=process.env.PORT||5000;
 var cors =require('cors')
 
 const uri = process.env.URI;
@@ -28,8 +28,8 @@ app.use("/api",ContactRouter)
 app.get('/',(req,res)=>{
     res.send("hello")
 })
-app.get('',(req,res)=>{
-    res.send("page not found")
+app.use((req,res)=>{
+    res.send("page not found");
 })
 
 app.listen(PORT,(err=>{
