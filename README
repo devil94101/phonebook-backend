@@ -1,0 +1,72 @@
+This is a phone book api which stores contact details
+
+
+API Structure
+
+First you need postman to send the request to api 
+
+Generate token:
+User needs to generate token to access the api which can be generate using 
+POST /api/getToken
+body : { 
+    "name":"your name", 
+    "email":"your email"
+}
+
+you will get a token and you can use it to access the apis
+
+In all user action you need to pass the generated token with header with key "x-auth-token" and value will be the generated token
+otherwise the api wont allow you to access them 
+
+User actions:
+
+Add contact
+POST /api/addContact
+body: {
+    "name":"contact name required",
+    "email":"contact email should be unique required",
+    "phone":"Optional property if you want to pass"
+}
+
+Update a contact
+You need contact id to Update the contact the body values are optional
+PUT /api/updateContact/:contact_id
+body: {
+    "name":"",
+    "email":"",
+    "phone":"",
+}
+
+Delete contact
+You need contact id to delete the contact
+DELETE /api/deleteContact/:contact_id
+
+
+Get all contacts
+This api shows all contacts but it shows max 10 contacts at a time
+This api has a parameter pagenumber which is optional if you won't pass a pagenumber it will show first page by default
+Note: first pages start with 0
+To view further contact use pagenumber example
+
+/api/allContacts/2    It will show you 3rd page results and if this many results are not exist it will return empty object
+
+GET /api/allContacts/:pagenumber?
+return: {contacts:[contactObj, contactObj, ... ] }
+
+Search for a contact
+This api search the contact by their name and email and have 2 parameters 
+First Search Query and Second pagenumber just like the Get all contact api
+Both parameters are optional
+
+GET /contacts/search/:search_term?/:pagenumber?
+return: {contacts:[contactObj, contactObj, ... ] }
+
+
+contactObj = {
+	name:String,
+	phone: string,
+	email: string, 
+	_id: string,
+	__v: number
+}
+
